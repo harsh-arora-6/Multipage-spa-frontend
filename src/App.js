@@ -28,22 +28,32 @@ import NewEventPage from './pages/NewEvent';
 import EditEventPage from './pages/EditEvent';
 import EventRootLayout from './pages/EventRoot';
 const router = createBrowserRouter([
-  {path:'/',
-  element:<RootLayout />,
-  // below are relative paths.
-  children:[
-    {index:true,element:<HomePage />},
-    {
-      path:'events',
-      element:<EventRootLayout />,
-      children:[
-        {path:'',element:<EventsPage />},
-        {path:':eventId',element:<EventDetailPage />},
-        {path:'new',element:<NewEventPage />},
-        {path:':eventId/edit',element:<EditEventPage />}
-      ]
-    }
-    ,
+  {
+    path:'/',
+    element:<RootLayout />,
+    // below are relative paths.
+    children:[
+      {index:true,element:<HomePage />},
+      {
+        path:'events',
+        element:<EventRootLayout />,
+        children:[
+          {path:'',element:<EventsPage />, loader:async ()=>{
+            const response = await fetch('http://localhost:8080/events');
+
+            if (!response.ok) {
+              // setError('Fetching events failed.');
+            } else {
+              const resData = await response.json();
+              return resData.events;
+              // setFetchedEvents(resData.events);
+            }
+          }},
+          {path:':eventId',element:<EventDetailPage />},
+          {path:'new',element:<NewEventPage />},
+          {path:':eventId/edit',element:<EditEventPage />}
+        ]
+      }
   ]},
 ])
 
