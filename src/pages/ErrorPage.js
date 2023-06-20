@@ -9,7 +9,8 @@ export default function ErrorPage(){
     let message;
     console.log('status ' , error.status);
     if(error.status === 500){
-        message = JSON.parse(error.data).message;
+        // message = JSON.parse(error.data).message;
+        message = error.data.message;
     }
     // default for errorElement.
     if(error.status === 404){
