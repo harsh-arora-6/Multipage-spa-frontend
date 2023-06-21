@@ -1,15 +1,19 @@
-import { useNavigate,Form } from 'react-router-dom';
+import { useNavigate,Form,useNavigation } from 'react-router-dom';
 
 import classes from './EventForm.module.css';
 
 function EventForm({ method, event }) {
+  const navigation = useNavigation();
   const navigate = useNavigate();
+  let isSubmitting = navigation.state === 'submitting';
   function cancelHandler() {
     navigate('..');
   }
   // we use 'Form' instead of 'form' so that we can get access to properties in the action property of route
   // for that make share each property has name attribute 
   return (
+    //     <Form method='post' action='<route-path> className={classes.form}> the route mentioned in action will be triggerred and if not mentioned then current route is considered
+
     <Form method='post' className={classes.form}>
       <p>
         <label htmlFor="title">Title</label>
@@ -28,10 +32,10 @@ function EventForm({ method, event }) {
         <textarea id="description" name="description" rows="5" required defaultValue={event?event.description:''} />
       </p>
       <div className={classes.actions}>
-        <button type="button" onClick={cancelHandler}>
+        <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
           Cancel
         </button>
-        <button>Save</button>
+        <button disabled={isSubmitting}>{isSubmitting?'Submitting...':'Save'}</button>
       </div>
     </Form>
   );
