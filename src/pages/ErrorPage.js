@@ -7,7 +7,7 @@ export default function ErrorPage(){
     const error = useRouteError();
     let title = 'An Error Occurred';
     let message;
-    console.log('status ' , error.status);
+    // console.log('status ' , error.status);
     if(error.status === 500){
         // message = JSON.parse(error.data).message;
         message = error.data.message;
