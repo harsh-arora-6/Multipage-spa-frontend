@@ -1,8 +1,10 @@
-import { useNavigate,Form,useNavigation } from 'react-router-dom';
+import { useNavigate,Form,useNavigation,useActionData } from 'react-router-dom';
 
 import classes from './EventForm.module.css';
 
 function EventForm({ method, event }) {
+  // using hook similar to useLoaderData
+  const data = useActionData();
   const navigation = useNavigation();
   const navigate = useNavigate();
   let isSubmitting = navigation.state === 'submitting';
@@ -15,6 +17,9 @@ function EventForm({ method, event }) {
     //     <Form method='post' action='<route-path> className={classes.form}> the route mentioned in action will be triggerred and if not mentioned then current route is considered
 
     <Form method='post' className={classes.form}>
+      {data && data.errors && <ul>
+        {Object.values(data.errors).map(err => <li key={err}>{err}</li>)}
+        </ul>}
       <p>
         <label htmlFor="title">Title</label>
         <input id="title" type="text" name="title" required defaultValue={event?event.title:''}/>

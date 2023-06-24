@@ -19,6 +19,10 @@ export async function action({request,params}){
         body:JSON.stringify(eventData),
         headers:{'Content-Type':'application/json'}
     });
+    // validation error from backend as client side checks in eventForm can be disable from browser.
+    if(response.status === 422){
+        return response;
+    }
     if(!response.ok){
         throw json({message:'Could not save event'},{status:500});
     }
