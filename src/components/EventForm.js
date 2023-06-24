@@ -1,4 +1,4 @@
-import { useNavigate,Form,useNavigation,useActionData } from 'react-router-dom';
+import { useNavigate,Form,useNavigation,useActionData, json, redirect } from 'react-router-dom';
 
 import classes from './EventForm.module.css';
 
@@ -16,7 +16,7 @@ function EventForm({ method, event }) {
   return (
     //     <Form method='post' action='<route-path> className={classes.form}> the route mentioned in action will be triggerred and if not mentioned then current route is considered
 
-    <Form method='post' className={classes.form}>
+    <Form method={method} className={classes.form}>
       {data && data.errors && <ul>
         {Object.values(data.errors).map(err => <li key={err}>{err}</li>)}
         </ul>}
@@ -47,3 +47,34 @@ function EventForm({ method, event }) {
 }
 
 export default EventForm;
+
+export async function action({request,params}){
+  // access Form properties from EventForm
+  const data = await request.formData();
+  const eventData = {
+      title:data.get('title'),
+      image:data.get('image'),
+      date:data.get('date'),
+      description:data.get('description')
+  };
+  let url = 'http://localhost:8080/events/';
+  if(request.method === 'PATCH'){
+    const eventId = params.eventId;
+    url = url + eventId;
+  }
+  // console.log(eventData);
+  const response = await fetch(url,{
+      method:request.method,
+      body:JSON.stringify(eventData),
+      headers:{'Content-Type':'application/json'}
+  });
+  // validation error from backend as client side checks in eventForm can be disable from browser.
+  if(response.status === 422){
+      return response;
+  }
+  if(!response.ok){
+      throw json({message:'Could not save event'},{status:500});
+  }
+  // navigate away to some page after saving 
+  return redirect('/events');
+}
