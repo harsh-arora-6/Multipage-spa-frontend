@@ -25,6 +25,7 @@ export async function loadEvents(){
     }
 }
 export function loader(){
+    // helps in showing some contents while waiting for other (lazy loading)
     return defer({
         events:loadEvents()
     })
