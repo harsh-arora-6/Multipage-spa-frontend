@@ -41,6 +41,8 @@ export async function loadEvents(){
 }
 export async function loader({request,params}){
     const id = params.eventId;
+    // here since we put await in front of event so page won't load until loadEvent is resolved so we will never see fallback
+    //  but events will be deferred
     return defer({
         event:await loadEvent(id),
         events:loadEvents()
