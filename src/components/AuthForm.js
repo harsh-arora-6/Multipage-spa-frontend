@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Form } from 'react-router-dom';
 import {useSearchParams,Link} from 'react-router-dom';
 import classes from './AuthForm.module.css';
