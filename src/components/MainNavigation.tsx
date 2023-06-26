@@ -2,9 +2,10 @@ import { NavLink,Form, useRouteLoaderData } from 'react-router-dom';
 
 import classes from './MainNavigation.module.css';
 import NewsletterSignup from './NewsletterSignup';
+import React from 'react';
 
 function MainNavigation() {
-  const token = useRouteLoaderData('root');
+  const token = useRouteLoaderData('root') as string | null;
   return (
     <header className={classes.header}>
       <nav>

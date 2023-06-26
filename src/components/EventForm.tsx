@@ -9,9 +9,12 @@ import {
 
 import classes from './EventForm.module.css';
 import { getAuthToken } from '../util/auth';
+import React from 'react';
+import { EventObj, ActionData } from '../models/types';
 
-function EventForm({ method, event }) {
-  const data = useActionData();
+
+function EventForm({ method, event }:{method:any,event?:EventObj}) {
+  const data= useActionData() as ActionData | null;
   // console.log(data)
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -67,7 +70,7 @@ function EventForm({ method, event }) {
         <textarea
           id="description"
           name="description"
-          rows="5"
+          rows={5}
           required
           defaultValue={event ? event.description : ''}
         />
@@ -86,7 +89,7 @@ function EventForm({ method, event }) {
 
 export default EventForm;
 
-export async function action({ request, params }) {
+export async function action({ request, params }:{request:any,params:any}) {
   const method = request.method;
   const data = await request.formData();
 

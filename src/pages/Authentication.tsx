@@ -1,3 +1,4 @@
+import React from 'react';
 import AuthForm from '../components/AuthForm';
 import {json,redirect} from 'react-router-dom';
 function AuthenticationPage() {
@@ -6,7 +7,7 @@ function AuthenticationPage() {
 
 export default AuthenticationPage;
 
-export async function action({request}){
+export async function action({request}:{request:any}){
   const searchParams = new URL(request.url).searchParams;
   const mode = searchParams.get('mode')||'login';
   if(mode !== 'login' && mode !== 'signup'){

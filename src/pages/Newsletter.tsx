@@ -1,3 +1,4 @@
+import React from 'react';
 import NewsletterSignup from '../components/NewsletterSignup';
 import PageContent from '../components/PageContent';
 
@@ -11,7 +12,7 @@ function NewsletterPage() {
 
 export default NewsletterPage;
 
-export async function action({ request }) {
+export async function action({ request }:{request:any}) {
   const data = await request.formData();
   const email = data.get('email');
 

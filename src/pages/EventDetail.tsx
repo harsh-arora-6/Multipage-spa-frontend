@@ -10,9 +10,11 @@ import {
 import EventItem from '../components/EventItem';
 import EventsList from '../components/EventsList';
 import { getAuthToken } from '../util/auth';
+import React from 'react';
+import { EventObj } from '../models/types';
 
 function EventDetailPage() {
-  const { event, events } = useRouteLoaderData('event-detail');
+  const { event, events } = useRouteLoaderData('event-detail') as {event:EventObj,events:EventObj[]};
 
   return (
     <>
@@ -32,7 +34,7 @@ function EventDetailPage() {
 
 export default EventDetailPage;
 
-async function loadEvent(id) {
+async function loadEvent(id:string) {
   const response = await fetch('http://localhost:8080/events/' + id);
 
   if (!response.ok) {
@@ -68,7 +70,7 @@ async function loadEvents() {
   }
 }
 
-export async function loader({ request, params }) {
+export async function loader({ request, params }:{request:any,params:any}) {
   const id = params.eventId;
 
   return defer({
@@ -77,7 +79,7 @@ export async function loader({ request, params }) {
   });
 }
 
-export async function action({ params, request }) {
+export async function action({ params, request }:{request:any,params:any}) {
   const eventId = params.eventId;
   const token = getAuthToken();
   const response = await fetch('http://localhost:8080/events/' + eventId, {

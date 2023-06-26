@@ -2,8 +2,10 @@
 import { Link } from 'react-router-dom';
 
 import classes from './EventsList.module.css';
+import React from 'react';
+import { EventObj } from '../models/types';
 
-function EventsList({events}) {
+function EventsList({events}:{events:EventObj[]}) {
   // const events = useLoaderData();
 
   return (

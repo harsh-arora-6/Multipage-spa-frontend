@@ -2,8 +2,10 @@ import { Link, useSubmit } from 'react-router-dom';
 
 import classes from './EventItem.module.css';
 import { useRouteLoaderData } from 'react-router-dom';
-function EventItem({ event }) {
-  const token = useRouteLoaderData('root');
+import React from 'react';
+import { EventObj } from '../models/types';
+function EventItem({ event }:{event:EventObj}) {
+  const token = useRouteLoaderData('root') as string|null;
 
   const submit = useSubmit();
 

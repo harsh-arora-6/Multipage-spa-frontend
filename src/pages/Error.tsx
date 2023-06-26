@@ -2,9 +2,11 @@ import { useRouteError } from 'react-router-dom';
 import MainNavigation from '../components/MainNavigation';
 
 import PageContent from '../components/PageContent';
+import React from 'react';
+import { ErrorObj } from '../models/types';
 
 function ErrorPage() {
-  const error = useRouteError();
+  const error = useRouteError() as ErrorObj;
 
   let title = 'An error occurred!';
   let message = 'Something went wrong!';
