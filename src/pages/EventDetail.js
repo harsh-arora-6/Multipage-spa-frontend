@@ -84,7 +84,7 @@ export async function action({ params, request }) {
     method: request.method,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization':'Bearer '+token
+      'Authorization':'Bearer '+ token
     },
   });
 
