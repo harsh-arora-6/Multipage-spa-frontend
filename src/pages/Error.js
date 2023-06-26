@@ -8,7 +8,7 @@ function ErrorPage() {
 
   let title = 'An error occurred!';
   let message = 'Something went wrong!';
-  if (error.status === 500) {
+  if (error.status === 500 || error.status === 401 || error.status === 422) {
     message = error.data.message;
   }
 

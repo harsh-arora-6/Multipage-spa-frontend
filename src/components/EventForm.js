@@ -12,6 +12,7 @@ import { getAuthToken } from '../util/auth';
 
 function EventForm({ method, event }) {
   const data = useActionData();
+  // console.log(data)
   const navigate = useNavigate();
   const navigation = useNavigation();
 
@@ -30,6 +31,7 @@ function EventForm({ method, event }) {
           ))}
         </ul>
       )}
+      {data && data.message && <p>{data.message}</p>}
       <p>
         <label htmlFor="title">Title</label>
         <input
@@ -111,8 +113,8 @@ export async function action({ request, params }) {
     },
     body: JSON.stringify(eventData),
   });
-
-  if (response.status === 422) {
+  // console.log(response);
+  if (response.status === 422 || response.status === 401) {
     return response;
   }
 
